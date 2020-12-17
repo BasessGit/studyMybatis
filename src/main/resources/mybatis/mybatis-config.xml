@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--引入properties文件-->
+    <properties resource="properties/jdbc.properties"/>
+    <settings>
+        <setting name="jdbcTypeForNull" value="NULL"/>
+        <!--驼峰命名-->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+     <!--   延迟加载-->
+        <setting name="lazyLoadingEnabled" value="true"/>
+        <!--开启加载全部，关闭按需加载-->
+        <setting name="aggressiveLazyLoading" value="false"/>
+     <!--   注册插件-->
+    </settings>
+    <plugins>
+      <!--  <plugin interceptor="mybatis.plugin.MyFirstPlugin">
+            <property name="username" value="笑话"/>
+            <property name="password" value="123456"/>
+        </plugin>-->
+        <plugin interceptor="com.github.pagehelper.PageInterceptor">
+            <property name="param1" value="value1"/>
+        </plugin>
+    </plugins>
+    <!--别名-->
+<!--
+    <typeAliases>
+        &lt;!&ndash;单个别名&ndash;&gt;
+     &lt;!&ndash;  <typeAlias type="cn.wuaijing.bean.User" alias="user"></typeAlias>&ndash;&gt;
+        &lt;!&ndash;批量起别名&ndash;&gt;
+        <package name="cn.wuaijing.bean"/>
+    </typeAliases>
+-->
+
+<!--    类型处理器-->
+<!--    <typeHandlers>
+        <typeHandler handler=""></typeHandler>
+    </typeHandlers>-->
+
+
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理器：JDBC、C3PO-->
+            <transactionManager type="JDBC"/>
+            <dataSource type="POOLED">
+                <!--驱动-->
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+
+    </environments>
+    <!--支持多数据库厂商
+    type="DB_VENDOR"是mybatis中configuration类中起的别名，作用是获取厂商数据库标识
+    在java的Connection连接规范中的getDataBaseProductName()方法就是获取数据库厂商的唯一标识-->
+    <databaseIdProvider type="DB_VENDOR">
+        <property name="MySQL" value="mysql"/>
+        <property name="Oracle" value="oracle"/>
+    </databaseIdProvider>
+
+    <mappers>
+        <!-- <mapper resource="mybatis/mapper/UserMapper.xml"></mapper>
+        <mapper class="cn.wuaijing.mapper.UserMapperAnnotation"></mapper>-->
+        <package name="cn.wuaijing.mapper"/>
+    </mappers>
+</configuration>

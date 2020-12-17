@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+    <properties resource="properties/jdbc.properties"></properties>
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"></plugin>
+        <jdbcConnection driverClass="${jdbc.driver}"
+                        connectionURL="${jdbc.url}"
+                        userId="${jdbc.username}"
+                        password="${jdbc.password}">
+        </jdbcConnection>
+       <!-- 定义列所对应的java类型的解析器-->
+        <javaTypeResolver >
+            <property name="forceBigDecimals" value="false" />
+        </javaTypeResolver>
+        <!--指定javabean的生成策略-->
+        <javaModelGenerator targetPackage="cn.wuaijing.bean" targetProject="E:\IDEA\studyMybatis\src\main\java">
+            <property name="enableSubPackages" value="true" />
+            <property name="trimStrings" value="true" />
+
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="cn.wuaijing.mapper"  targetProject="E:\IDEA\studyMybatis\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </sqlMapGenerator>
+
+        <javaClientGenerator type="MIXEDMAPPER" targetPackage="cn.wuaijing.mapper"  targetProject="E:\IDEA\studyMybatis\src\main\java">
+            <property name="enableSubPackages" value="true" />
+        </javaClientGenerator>
+
+        <table  tableName="users" domainObjectName="User" ></table>
+        <table tableName="dept" domainObjectName="Dept"></table>
+
+    </context>
+    </generatorConfiguration>
